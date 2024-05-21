@@ -1,6 +1,6 @@
 {% set name = "cuda-cuxxfilt" %}
-{% set version = "12.4.127" %}
-{% set cuda_version = "12.4" %}
+{% set version = "12.5.39" %}
+{% set cuda_version = "12.5" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -18,14 +18,13 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_cuxxfilt/{{ platform }}/cuda_cuxxfilt-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: 5c9a74786bc84dee6f2ea941f3933ce77bfa26a9135a8d38ee8c3a7183b9b200  # [linux64]
-  sha256: 3bbf33a7a4757c82900500940e8cfe8b1a42a4a7e48e9cd732c5fb94f3433704  # [ppc64le]
-  sha256: e8bb04577e3271477b43c6948c5a39686c93d22f87ddeefd838682298ee399ef  # [aarch64]
-  sha256: 646d523d25f8cfa0feb731b2220da15065ecc793b2a830a81bf537e16d273dd9  # [win]
+  sha256: 39b3f23ecc0904a205d8152214bc8a5122231a248154ccb81b9b431c8ca5cc65  # [linux64]
+  sha256: 84dd4b26c40162a3aeb3e6aa16bf270e0c8d0222e95b9cabd125653f594fb7a2  # [aarch64]
+  sha256: fa3fe1d3939dd1ada352e6d784a579ab99342eafbb8739370747531b78b5d5ef  # [win]
 
 build:
-  number: 2
-  skip: true  # [osx]
+  number: 0
+  skip: true  # [osx or ppc64le]
 
 requirements:
   build:
