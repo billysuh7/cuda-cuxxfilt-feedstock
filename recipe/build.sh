@@ -17,6 +17,13 @@ for i in `ls`; do
         mkdir -p ${PREFIX}/$i
         cp -rv $i ${PREFIX}/${targetsDir}
     else
+        if [[ $i == "bin" ]]; then
+            for j in `ls "${i}"`; do
+                echo patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" "${i}/${j}" ...
+                patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" "${i}/${j}"
+            done
+        fi
+
         # bin installed in PREFIX
         cp -rv $i ${PREFIX}
     fi
