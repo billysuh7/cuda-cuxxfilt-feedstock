@@ -23,7 +23,8 @@ source:
   sha256: e771414a1d96eb4b89c0759cd2d2f127b929c5c2a0961f176c3a8f0736e94b64  # [win]
 
 build:
-  number: 0
+  number: 1
+  binary_relocation: false
   skip: true  # [osx or ppc64le]
 
 requirements:
@@ -37,10 +38,15 @@ requirements:
     - {{ pin_compatible("cuda-version", max_pin="x.x") }}
 
 test:
+  requires:
+    - patchelf  # [linux]
+  files:
+    - test-rpath.sh
   commands:
     - test -f $PREFIX/bin/cu++filt                                   # [linux]
     - test -f $PREFIX/targets/{{ target_name }}/include/nv_decode.h  # [linux]
     - test -f $PREFIX/targets/{{ target_name }}/lib/libcufilt.a      # [linux]
+    - bash test-rpath.sh                                             # [linux]
     - if not exist %LIBRARY_BIN%\\cu++filt.exe exit 1                # [win]
     - if not exist %LIBRARY_INC%\\nv_decode.h exit 1                 # [win]
     - if not exist %LIBRARY_LIB%\\cufilt.lib exit 1                  # [win]
